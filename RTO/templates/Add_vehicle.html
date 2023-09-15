@@ -1,0 +1,120 @@
+{% extends "staffhead.html" %}
+{% load static %}
+{% block content %}
+<H2>Register Vehicles</H2>
+<!-- <hr style="color:#13bef0"/> -->
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'success' %}
+      <div class="success-message">
+        {{ message }}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+<form class="form-horizontal"  method="post" action="{% url 'Register_vehicle' %}">
+    {% csrf_token %}
+    <table class="table table-responsive table-striped">
+        <tr>
+            <th>Owner Name</th>
+            <th><input type="text" class="form-control" name="t1" required placeholder="enter owner Name"/></th>
+        </tr>
+        <tr>
+            <th>Owner address</th>
+            <th><textarea class="form-control" name="t2" required placeholder="enter owner Address"></textarea>
+            </th>
+        </tr>
+        <tr>
+            <th>Owner Email</th>
+            <th><input type="email" class="form-control" name="t3" required placeholder="enter owner email"/></th>
+        </tr>
+        <tr>
+            <th>Owner Phone</th>
+            <th><input type="number" minlength="10" maxlength="10" class="form-control" name="t4" required placeholder="enter owner phone no"/></th>
+        </tr>
+        <tr>
+            <th>Vehicle No.</th>
+            <th><input type="text" class="form-control" name="t5" required placeholder="enter vehicle No."/></th>
+        </tr>
+        <tr>
+            <th>Vehicle Type</th>
+            <th><select class="form-control" name="t6" required>
+                <option value="">Select Vehicle Type</option>
+                <option value="two-wheeler">Two-Wheeler</option>
+                <option value="three-wheeler">Three-Wheeler</option>
+                <option value="four-wheeler">Four-Wheeler</option>
+                <option value="four-wheeler">six-Wheeler or more</option>
+                
+                
+                <!-- Add more options here if needed -->
+            </select></th>
+        </tr>
+        <tr>
+            <th>Vehicle Details</th>
+            <th><textarea class="form-control" name="t7" required placeholder="enter vehicle details"></textarea></th>
+        </tr>
+        <tr>
+<th colspan="3"><button type="submit" id="save-button" class="btn btn-lg btn-success custom-btn" disabled>Save</button>
+
+</th>
+        </tr>
+    </table>
+    <style>.btn-lg {
+        padding: 1px 10px;
+    }
+    /* Define the custom button style */
+.custom-btn {
+  background-color: #400bca;
+  color: white; /* Set text color to contrast with the background */
+  border: none;
+  border-radius: 8px;
+  padding: 1px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Add animation on hover */
+.custom-btn:hover {
+  background-color: #5f309e;
+  transform: scale(1.05); /* Add a slight zoom effect */
+}
+.custom-btn.enable-animation:hover,
+    .custom-btn.enable-animation {
+        background-color: #5f309e;
+        animation: zoomAnimation 0.5s alternate infinite;
+    }
+
+    @keyframes zoomAnimation {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(1.05);
+        }
+    }
+    .success-message {
+    color: green;
+    background-color: #e6ffe6;
+    border: 1px solid #66ff66;
+    /* Add any other styles as needed */
+}
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputFields = document.querySelectorAll("input[type='text'], input[type='email'], input[type='number'], textarea");
+        const saveButton = document.getElementById("save-button");
+
+        inputFields.forEach(inputField => {
+            inputField.addEventListener("input", function () {
+                const allFieldsFilled = Array.from(inputFields).every(field => field.value.trim() !== "");
+                saveButton.disabled = !allFieldsFilled;
+                if (allFieldsFilled) {
+                    saveButton.classList.add("enable-animation");
+                } else {
+                    saveButton.classList.remove("enable-animation");
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

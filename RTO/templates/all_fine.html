@@ -1,0 +1,44 @@
+{% extends "staffhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Reported Fine History</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Vehicle No. </th>
+                            <th>Fine Amount </th>
+                            <!-- <th>Fine Details</th> -->
+                           
+
+                            <th>Reported Date</th>
+                            <!-- <th>Reported time</th> -->
+                        
+                            <th>Fine Status </th>
+                         
+                           
+                        
+                            
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{datas.user.Vechile_no}} {{datas.User_id.Vechile_type}}<br/>
+                                  {{datas.User_id.Owner_name}}<br/>
+                                  {{datas.User_id.Owner_phone}}
+                                </td>
+                                <td>{{datas.fine_amount}}</td>
+                                <!-- <td>{{datas.fine_details}}</td> -->
+                                <td>{{datas.timestamp}}</td>
+                                <!-- <td>{{datas.Report_id.Report_time}}</td> -->
+                                <td>{{datas.Fine_status}}</td>	
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endblock %}

@@ -1,0 +1,29 @@
+{% extends "adminhead.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3  class="h3">Welcome Admin</h3>
+                <img src="{% static 'img/DDS.jpg' %}" alt="Image description" class="img-responsive">
+            </div>
+        </div>
+    </div>
+    <style>
+        .h3{
+
+            /* background-image: linear-gradient(to bottom, #400bca 0%, #050d45 100%); */
+            /* background-color:#400bca ; */
+            color:#400bca;
+        }
+    </style>
+{% endblock %}

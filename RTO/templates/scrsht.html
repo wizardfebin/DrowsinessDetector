@@ -1,0 +1,165 @@
+{% extends "userhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Fine report</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Name </th>
+                            <th>Photo</th>
+                            <th>Date & Time</th>
+                            <th>Fine Amount</th>
+                         
+                          
+                        
+                          
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                            
+                                <td>{{datas.user.Owner_name}}</td>
+                                <td><img src="../{{datas.screenshot}}" width="40" height="40"><a href="../{{datas.screenshot}}">Open</a></td>
+                                <td>{{datas.timestamp}}</td>
+                                <td> {% if datas.fine_amount %}
+                                 {{datas.fine_amount}}
+                                {% else %}
+                                Wait for the payment
+                              {% endif %}
+                            </td>
+                                <td>   <div class="btn-group">
+                                  <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
+                                      Action <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                          <a data-toggle="modal" data-target="#request-{{ datas.detect_id }}"
+                                              href="#"><i class="fa fa-question-circle"> Complete Payment</i></a>
+                                      </li>
+                                  </ul>
+                              </div>
+                                </td>
+                                <div class="modal fade" id="request-{{datas.detect_id}}" role="dialog">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span
+                                            class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                        <h4 class="modal-title custom_align" id="Heading">Complete Payment</h4>
+                                      </div>
+                                      <div class="modal-body">
+            
+                                        <form class="form-horizontal" method="post" action="{% url 'payment_request' %}"
+                                          onsubmit="return validatePay(this)">
+                                          {% csrf_token %}
+            
+                                          <input type="hidden" class="form-control" value="{{datas.detect_id}}" name="lid" />
+                                          <div class="row">
+                                            <div class="col-xs-3"></div>
+                                            <div class="col-xs-3"> Holder Name</div>
+                                            <div class="col-xs-3"> <input type="text" class="form-control" name="holder"
+                                                title="Please enter your name in alphabet" /></div>
+                                            <div class="col-xs-3"></div>
+                                          </div>
+                                          <div class="row ">
+                                            <div class="col-xs-3"></div>
+                                            <div class="col-xs-3"> Card Number</div>
+                                            <div class="col-xs-3"> <input type="text" class="form-control" name="card"
+                                                /></div>
+            
+                                            <div class="col-xs-3"></div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-xs-3"></div>
+                                            <div class="col-xs-3">CVV</div>
+                                            <div class="col-xs-3"> <input type="text" class="form-control" name="cvv" /></div>
+            
+                                            <div class="col-xs-3"></div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-xs-3"></div>
+                                            <div class="col-xs-3">Expire</div>
+                                            <div class="col-xs-3"> <input type="text" class="form-control" value="" name="exp" required/>
+                                            </div>
+            
+                                            <div class="col-xs-3"></div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-xs-3"></div>
+                                            <div class="col-xs-3">Amount To pay</div>
+                                            <div class="col-xs-3"> <input type="text" class="form-control" value="{{datas.fine_amount}}"
+                                                name="amt" readonly />
+                                            </div>
+                                            <div class="col-xs-3"></div>
+            
+                                          </div>
+                                      </div>
+            
+                                      <div class="box-content">
+            
+                                        <button type="submit" name="request" class="]btn btn-success pull-right "><span class="glyphicon 
+                glyphicon-ok-sign"></span>Pay</button>
+                                        <button type="reset" class=" btn btn-danger " data-dismiss="modal"><span
+                                            class="glyphicon glyphicon-remove"></span>No</button>
+            
+                                      </div>
+                                      </form>
+                                    </div>
+            
+            
+                                    <div class="modal-footer ">
+            
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                          </div>
+                                </tr>
+                                {% empty %}
+    <tr>
+      <td colspan="6">There is no fine remaining</td>
+    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <style>
+                         .btn-group .btn {
+            background-color: #400bca;
+            color: white; }
+            .btn-group .btn {
+            background-color: #400bca;
+            color: white;
+            padding: 1px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px; /* Adjust the perspective for the 3D effect */
+        }
+
+        .btn-group .btn:hover {
+            transform: rotateX(360deg) scale(1.2); /* Apply rotation and scaling on hover */
+        }  
+        .btn-group .btn.btn-info:active,
+        .btn-group .btn.btn-info:focus {
+            background-color: #400bca; /* Change the background color on click/focus */
+        }
+        .btn-group .dropdown-menu a {
+            transition: background-color 0.3s ease; /* Add transition to the link */
+        }
+        
+        .btn-group .dropdown-menu a:hover {
+            background-color: #400bca; /* Change background color on link hover */
+            color: white; /* Change text color on link hover */
+        }
+        .table td a {
+            color: #400bca;
+        }
+       </style>
+                        {% endblock %}

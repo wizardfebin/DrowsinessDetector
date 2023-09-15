@@ -1,0 +1,42 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Manage Staff</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                         
+                            <th>Owner Name</th>
+                            <th>Owner Address</th>
+                            <th>Owner Email</th>
+                            <th>Owner Phoneno</th>
+                            <th>Vehcile No.</th>
+                            <th>Vehcile Type</th>
+                            <th>Vehicle Details</th>
+                          
+                        
+                            <th >Action</th>
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                            
+                                <td>{{datas.Owner_name}}</td>
+                                <td>{{datas.Owner_address}}</td>
+                                <td>{{datas.Owner_email}}</td>
+                                <td>{{datas.Owner_phone}}</td>
+                                <td>{{datas.Vechile_no}}</td>
+                                <td>{{datas.Vechile_type}}</td>
+                                <td>{{datas.Vechile_details}}</td>	
+                                <td><a class="btn-danger btn" href="{% url 'delete_user' %}?id={{datas.User_id}}">Remove</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endblock %}

@@ -1,0 +1,29 @@
+{% extends "userhead.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .im{
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        display: block;
+        opacity: 0.9;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3  class="h3">Welcome {{request.session.username}}</h3>
+            <img src="{% static 'img/DDS.jpg' %}" alt="Image description" class="im">
+        </div>
+    </div>
+</div>
+<style>
+    .h3{
+
+        /* background-image: linear-gradient(to bottom, #400bca 0%, #050d45 100%); */
+        /* background-color:#400bca ; */
+        color:#400bca;
+    }
+</style>
+{% endblock %}

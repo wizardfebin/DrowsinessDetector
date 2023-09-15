@@ -1,0 +1,49 @@
+{% extends "userhead.html" %}
+{% load static %}
+{% block content %}
+
+{% if msg != "" %}
+<script > alert("{{msg}}");</script>
+{% endif %}
+
+
+<form method="POST" action="{% url 'pays' %}?id={{id}}&amt={{amt}}">
+
+    {% csrf_token %}
+<table class="table table-responsive table-striped">
+    
+<tr>
+    <td>
+        Account No :
+    </td>
+    <td>
+        <input type="text" name="t1" class="form-control" />
+    </td>
+</tr>
+
+<tr>
+    <td>
+        CVV :
+    </td>
+    <td>
+        <input type="text" name="t2" class="form-control" />
+    </td>
+</tr>
+<tr>
+    <td>
+        Amount :
+    </td>
+    <td>
+        <input type="number" name="t3" class="form-control" value="{{Fine_amt}}" />
+    </td>
+</tr>
+<tr>
+    <td colspan="2"> 
+<input type="submit" name="b1" class="btn btn-lg btn-success" value="Pay"/>
+
+    </td>
+</tr>
+
+</table>
+</form>
+{% endblock %}

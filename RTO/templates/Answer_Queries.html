@@ -1,0 +1,76 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Sl.No.</th>
+        <th>Complaint id</th>
+        <th>User name</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Complaint Date</th>
+        <th>Reply</th>
+        
+    </tr>
+    {% for datas in data %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{datas.Complaint_id}}</td>
+        <td>{{datas.User_id.Owner_name}}</td>
+        <td>{{datas.Complaint_subject}}</td>
+        <td>{{datas.Complaint_message}}</td>
+        <td>{{datas.Complaint_date}}</td>
+        <td>      {% if datas.Complaint_reply != "not yet Seen"%}
+            {{datas.Complaint_reply}}</td>
+            {% endif %}
+            {% if datas.Complaint_reply == "not yet Seen"%}
+            <a href="#" data-toggle='modal' data-target='#edit-{{datas.Complaint_id}}' >Reply</a>
+            {% endif %}
+    
+        
+    </tr>
+    {% if datas.Complaint_reply == "not yet Seen"%}
+           <!-- Modal parent details -->
+<div id="edit-{{datas.Complaint_id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    
+    <!-- Modal content-->
+    <div class="modal-content">
+    <form role="form" action="{% url 'complaints' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="t1" readonly value="{{datas.Complaint_id}}"/>
+                        <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Video Details</h4>
+    </div>
+   
+    <div class="modal-body">
+    <div class="form-group">
+    <label for="email">Subject:</label>
+    <input type="text" class="form-control" name="s1" value="{{datas.Complaint_subject}}" readonly />
+    </div>
+    
+    <div class="form-group">
+    <label for="email">Message</label>
+    <textarea class="form-control" name="s2"   >{{datas.Complaint_message}}</textarea>
+
+    </div>
+    
+    <div class="form-group">
+    <label for="email">Reply</label>
+    <textarea class="form-control" name="t2" required ></textarea>
+    </div>
+    
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-default" value="Submit"/>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+            </table>
+{% endblock %}

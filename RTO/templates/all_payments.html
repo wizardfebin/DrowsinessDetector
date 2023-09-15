@@ -1,0 +1,46 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Payment History</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>User id</th>
+                            <th>Vehicle & User Details </th>
+                            <th>Fine amount </th>
+                            <!-- <th>Fine Details</th> -->
+                           
+
+                            <th>Reported date & time</th>
+                            <!-- <th>Reported time</th> -->
+                        
+                            <th>Payed on </th>
+                         
+                           
+                        
+                            
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{datas.user.User_id}}</td>
+                                <td>{{datas.user.Vechile_no}} ({{datas.user.Vechile_type}})<br/>{{datas.user.Owner_email}}<br/>
+                                  {{datas.user.Owner_name}}<br/>
+                                  {{datas.user.Owner_phone}}
+                                </td>
+                                <td>{{datas.fine_amount}}</td>
+                                <!-- <td>{{datas.fine_status}}</td> -->
+                                <td>{{datas.timestamp}}</td>
+                                <!-- <td>{{datas.Fine_id.Report_id.Report_time}}</td> -->
+                                <td>{{datas.payment_timestamp}}</td>	
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endblock %}

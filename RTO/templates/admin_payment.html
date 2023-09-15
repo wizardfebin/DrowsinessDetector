@@ -1,0 +1,42 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Fine Report</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Name </th>
+                            <th>Photo</th>
+                            <th>Time</th>
+                            <th>Fine Status</th>                                  
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in scrsht %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                            
+                                <td>{{datas.user.Owner_name}}</td>
+                        
+                                <td><img src="../{{datas.screenshot}}" width="40" height="40"><a href="../{{datas.screenshot}}">Open</a></td>
+                                <td>{{datas.timestamp}}</td>
+                                
+                                <!-- Button to trigger the modal -->
+<td>
+    {{datas.Fine_status}}
+    
+</td>
+
+<!-- Modal -->
+<!-- Modal -->
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        {% endblock %}

@@ -1,0 +1,48 @@
+{% extends "userhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Fine report</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Fine amount </th>
+                            <th>fine Details</th>
+                           
+
+                            <th>Repoted date</th>
+                            <th>REpted time</th>
+                        
+                            <th>Fine status</th>
+                         
+                          
+                        
+                          
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                    
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                            
+                                <td>{{datas.Fine_amount}}</td>
+                                <td>{{datas.Fine_details}}</td>
+                                <td>{{datas.Report_id.Report_date}}</td>
+                                <td>{{datas.Report_id.Report_time}}</td>
+                                {% if datas.Fine_status == "pending" %}
+                                <td>
+                                  
+                                  <a class="btn-primary btn" href="{% url 'pay' %}?id={{datas.fine_id}}&amt={{datas.Fine_amount}}">Pay</a></td>
+                              
+                                {% else %}
+                                <td>{{datas.Fine_status}}</td>	
+                                {% endif %}
+                             
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endblock %}

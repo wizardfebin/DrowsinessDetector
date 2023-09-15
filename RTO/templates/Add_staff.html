@@ -1,0 +1,231 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+
+<H2 style="color:#13bef0">Appoint Staff</H2>
+<hr style="color:#13bef0"/>
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'success' %}
+      <div class="success-message">
+        {{ message }}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+                <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'Appoint_Staff' %}">
+                    {% csrf_token %}
+                    <table class="table table-responsive table-striped">
+                  
+                  <tr><td>
+                        Name</td><td>
+                            <input type="text" class="form-control" name="t1" required id="focusedinput" placeholder="Staff Name">
+                        </td></tr>
+                        <tr><td>
+                            Address</td><td><textarea name="t2" id="txtarea1" required cols="50" rows="4" class="form-control"placeholder="Staff Address"></textarea>
+                            </td></tr>
+                            <tr><td>Email Address</td><td>
+                        <input type="text" class="form-control" name="t3" required placeholder="Email Address" id="ema" onblur="auemailss();" required>
+                    </td></tr>
+                    <tr><td>Phone No</td><td>
+                            <input type="number" class="form-control" name="t4" id="phn" onblur="auphoness();" required id="mediuminput" placeholder="Phone Number">
+                        </td></tr>
+                        <tr><td>Designation</th>
+                            <th><select class="form-control" name="t5" required>
+                                <option value="">Select Designation</option>
+                                <option value="SI">SI</option>
+                                <option value="CI">CI</option>
+                                <option value="MVI">MVI</option>
+                                <option value="AMVI">AMVI</option>
+                                
+                                
+                                <!-- Add more options here if needed -->
+                            </select></td></tr>
+                        <tr><td>Qualification</td><td><label></label><input type="checkbox" name="t6" value="SSLC"> SSLC</label> &nbsp; 
+                                <label><input type="checkbox" name="t6" value="Plus two"> Plus Two</label> &nbsp; 
+                                <label><input type="checkbox" name="t6" value="UG"> UG</label> &nbsp; 
+                                <label><input type="checkbox" name="t6" value="PG"> PG</label></div>
+                            </td></tr>
+                            <tr><td>Photo</td><td>
+                            <input type="file" class="form-control" name="t8" required id="mediuminput" placeholder="Medium Input">
+                        </td></tr>
+                        <tr><td>User Name</td><td>
+                            <input type="text" class="form-control" name="t9" required id="mediuminput" placeholder="User Name">
+                        </td></tr>
+                        <tr><td>Password</td><td>
+                            <input type="password" class="form-control" name="t10" required id="inputPassword" placeholder="Password">
+                        </td></tr>
+                        <tr><td colspan="2" style="text-align: center;">
+    
+
+
+    <button class="btn-success btn btn-lg" type="submit" name="submit">Appoint</button>
+
+    <input type="reset" value="Reset" class=" btn btn-warning btn-lg"/>
+</td></tr>
+</table>
+</form>
+
+
+
+    
+
+
+
+<script>
+   
+
+function getDateDiffInYears(date1, date2) {
+var dateParts1 = date1.split('-')
+, dateParts2 = date2.split('-')
+, d1 = new Date(dateParts1[0], dateParts1[1]-1, dateParts1[2])
+, d2 = new Date(dateParts2[0], dateParts2[1]-1, dateParts2[2])
+
+return new Date(d2 - d1).getYear() - new Date(0).getYear() + 1;
+}
+function formatDate(date) {
+var d = new Date(date),
+month = '' + (d.getMonth() + 1),
+day = '' + d.getDate(),
+year = d.getFullYear();
+
+if (month.length < 2) month = '0' + month;
+if (day.length < 2) day = '0' + day;
+
+return [year, month, day].join('-');
+}
+
+function ageCalculator()
+{
+var sendDate =document.getElementById("date2").value;
+var inputDate = new Date(sendDate);
+// Get today's date
+var todaysDate = new Date();
+var date1 = formatDate(inputDate);
+var date2 = formatDate(todaysDate);
+// call setHours to take the time out of the comparison
+if(inputDate.setHours(0,0,0,0) >= todaysDate.setHours(0,0,0,0)) {
+alert('The date of birth date should not be greater than or equal to today!');
+}
+var diff = getDateDiffInYears(date1,date2);
+if(diff<18)
+{
+alert("Your age should not be less than 18 years");
+$("#date2").val('');
+$("#date2").focus();
+}
+
+}
+function aunamess()
+{
+var x =document.getElementById("nam").value;
+var letters = /^[A-Z a-z ]+$/
+// Get today's date
+if(!x.match(letters))
+{
+ alert("Name should be Aphabet");
+$("#nam").val('');
+}
+
+}
+function usernamess()
+{
+var x =document.getElementById("usernam").value;
+var letters = /^[A-Z a-z ]+$/
+// Get today's date
+if(!x.match(letters))
+{
+ alert("Name should be Aphabet");
+$("#usernam").val('');
+}
+
+}
+function auphoness()
+{
+var x =document.getElementById("phn").value;
+var letters=/^\d{10}$/;
+if(!x.match(letters))
+{
+alert("please Add 10 Digit phone number");
+$("#phn").val('');
+}
+
+}
+function userphoness()
+{
+var x =document.getElementById("userphn").value;
+var letters=/^\d{10}$/;
+if(!x.match(letters))
+{
+alert("please Add 10 Digit phone number");
+$("#userphn").val('');
+}
+
+}
+function auemailss()
+{
+var x =document.getElementById("ema").value;
+var atpos=x.indexOf("@");
+var dotpos=x.lastIndexOf(".");
+if(atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+{
+alert("Not a valid e-mail address");
+$("#ema").val('');
+}
+
+}
+function usermailss()
+{
+var x =document.getElementById("userema").value;
+var atpos=x.indexOf("@");
+var dotpos=x.lastIndexOf(".");
+if(atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+{
+alert("Not a valid e-mail address");
+$("#userema").val('');
+}
+
+}
+function aupass()
+{
+var x =document.getElementById("autpass").value;
+
+// Get today's date
+if(x.length >8||x.length <8)
+{
+ alert("Password should be 8 Character in length");
+$("#autpass").val('');
+}
+
+}
+function usspass()
+{
+var x =document.getElementById("uspass").value;
+
+// Get today's date
+if(x.length >8||x.length <8)
+{
+ alert("Password should be 8 Character in length");
+$("#uspass").val('');
+}
+
+}
+
+
+
+</script>
+<style>.btn-lg {
+    padding: 1px 15px;}
+    /* Styles for the success message div */
+.success-message {
+    color: green;
+    background-color: #e6ffe6;
+    border: 1px solid #66ff66;
+    /* Add any other styles as needed */
+}</style>
+
+
+
+
+{% endblock %}

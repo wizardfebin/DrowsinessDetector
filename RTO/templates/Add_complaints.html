@@ -1,0 +1,183 @@
+{% extends "userhead.html" %}
+{% load static %}
+{% block content %}
+    <h2>Add Complaints</h2>
+
+    <form class="form-horizontal" method="post" action="{% url 'Manage_complaints' %}">
+        {% csrf_token %}
+        <div class="table-container">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <th>Subjects</th>
+                    <td><input type="text" class="form-control" name="t1" id="t1" required placeholder="Subjects" oninput="updatePostButtonState()"/></td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td><textarea class="form-control" name="t2" id="t2" required placeholder="Message" oninput="updatePostButtonState()"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right;">
+                        <button class="btn-post" id="postButton" type="submit" >Post</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <div class="table-container">
+        <table class="table table-responsive table-striped">
+            <tr>
+                <th>Sl.No.</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Complaint Date</th>
+                <th>Replay</th>
+            </tr>
+            {% for datas in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ datas.Complaint_subject }}</td>
+                    <td>{{ datas.Complaint_message }}</td>
+                    <td>{{ datas.Complaint_date }}</td>
+                    <td>{{ datas.Complaint_reply }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <style>
+        /* Style for the table */
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container th, .table-container td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        /* Style for the input fields and textarea */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #400bca;
+        }
+
+        /* Style for the "Post" button */
+        .btn-post {
+            background-color: #400bca;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-post:hover {
+            background-color: #600fad;
+        }
+/* 
+        .rotate {
+            animation: rotateButton 0.5s linear infinite;
+            background-color: #400bca;
+        }
+
+        @keyframes rotateButton {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        } */
+        .btn-post.hover-move:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+    .btn-post {
+    background-color: #400bca;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.glow {
+        animation: glowButton 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowButton {
+        0% {
+            box-shadow: 0 0 15px rgba(8, 149, 85, 0.7);
+        }
+        100% {
+            box-shadow: 0 0 30px rgba(210, 241, 7, 0.9);
+        }
+    }
+
+    /* Change the background color during rotation */
+    /* .rotate {
+        animation: rotateButton 0.01ms linear infinite;
+           }
+
+    @keyframes rotateButton {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    } */
+    .glowing {
+            background-color: #400bca;
+            color: white;
+            border: none;
+            padding: 5px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px rgba(64, 11, 202, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(64, 11, 202, 1), 0 0 50px rgba(64, 11, 202, 0.8), 0 0 70px rgba(64, 11, 202, 0.6);
+            }
+        }
+    </style>
+
+<script>
+       function updatePostButtonState() {
+        var subjectInput = document.getElementById('t1');
+        var messageInput = document.getElementById('t2');
+        var postButton = document.getElementById('postButton');
+
+        if (subjectInput.value.trim() === '' || messageInput.value.trim() === '') {
+            postButton.classList.add('rotate', 'hover-move');
+            postButton.disabled = true; // Disable the button
+        } else {
+            postButton.classList.remove('rotate', 'hover-move');
+            postButton.disabled = false; // Enable the button
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+          <h2>Manage Staff</h2>
+            <table class="table table-responsive table-striped">
+          <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Phoneno</th>
+                            <th>Designation</th>
+                            <th>Qualification</th>
+                           
+                          
+                        
+                            <th >Action</th>
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                                
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><img src="/media/{{datas.Staff_photo}}" width="50px" height="50px"/></td>
+                                <td>{{datas.Staff_name}}</td>
+                                <td>{{datas.Staff_address}}</td>
+                                <td>{{datas.Staff_email}}</td>
+                                <td>{{datas.Staff_phone}}</td>
+                                <td>{{datas.Staff_designation}}</td>
+                                <td>{{datas.Staff_qualification}}</td>
+                                <td><a class="btn-danger btn" href="{% url 'delete_staff' %}?id={{datas.Staff_id}}">Remove</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endblock %}
